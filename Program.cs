@@ -1,33 +1,58 @@
-﻿
-// Задача 41. Пользователь вводит с клавиатуры M чисел. Посчитайте, сколько чисел больше 0 ввёл пользователь.
-// 0, 7, 8, -2, -2 -> 2
-// -1, -7, 567, 89, 223-> 3
+﻿//Задача 51: Задайте двумерный массив. Найдите сумму элементов, находящихся на главной 
+//диагонали (с индексами (0,0); (1;1) и т.д.)
+//Например, задан массив:
+//1472
+//5923
+//8424
+//Сумма элементов главной диагонали: 1+9+2 = 12
 
-Console.Clear();
 
-Console.Write($"Введи число М(количество чисел): ");
-int m = Convert.ToInt32(Console.ReadLine());
-int[] ArrayNumbers = new int[m];
+Console.Write("ВВедите количество строк массива: ");
+int rows = int.Parse(Console.ReadLine() ?? "");
 
-void InputNumbers(int m)
+Console.Write("ВВедите количество столбцов массива: ");
+int colums = int.Parse(Console.ReadLine() ?? "");
+
+int[,] array = GetArray(rows, colums, 0, 10);
+PrintArray(array);
+Console.WriteLine();
+int sum = SumArray(array);
+Console.WriteLine(sum);
+
+void PrintArray(int[,] inArray)
 {
-for (int i = 0; i < m; i++)
-  {
-    Console.Write($"Введи {i+1} число: ");
-    ArrayNumbers[i] = Convert.ToInt32(Console.ReadLine());
-  }
+    for (int i = 0; i < inArray.GetLength(0); i++)
+    {
+        for (int j = 0; j < inArray.GetLength(1); j++)
+        {
+            Console.Write($"{inArray[i, j]} ");
+        }
+        Console.WriteLine();
+    }
+}
+int[,] GetArray(int m, int n, int minValue, int maxValue)
+{
+    int[,] result = new int[m, n];
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            result[i, j] = new Random().Next(minValue, maxValue + 1);
+        }
+    }
+    return result;
 }
 
-int Comparison(int[] ArrayNumbers)
+int SumArray(int[,] array)
 {
-  int count = 0;
-  for (int i = 0; i < ArrayNumbers.Length; i++)
-  {
-    if(ArrayNumbers[i] > 0) count += 1; 
-  }
-  return count;
+    int sum = 0;
+    for (int i = 0; i < array.GetLength(0); i++)
+    {
+        for (int j = 0; j < array.GetLength(1); j++)
+        {
+            if(i == j)
+            sum += array[i,j];
+        }
+    }
+    return sum;
 }
-
-InputNumbers(m);
-
-Console.WriteLine($"Введено чисел больше 0: {Comparison(ArrayNumbers)} ");

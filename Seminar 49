@@ -1,0 +1,56 @@
+//Задача 49: Задайте двумерный массив. Найдите элементы, у которых оба индекса четные и 
+//замените эти элементы на их квадраты
+//Например, изначально массив выглядел вот так:
+//1472
+//5923
+//8424
+//Новый массив будет выглядеть так:
+//1472
+//5 81 2 9
+//8424
+
+Console.Write("ВВедите количество строк массива: ");
+int rows = int.Parse(Console.ReadLine() ?? "");
+
+Console.Write("ВВедите количество столбцов массива: ");
+int colums = int.Parse(Console.ReadLine() ?? "");
+
+int[,] array = GetArray(rows, colums);
+PrintArray(array);
+Console.WriteLine();
+ModArray(array);
+PrintArray(array);
+
+int[,] GetArray(int rows, int colums)
+{
+    int[,] result = new int[rows, colums];
+    for (int i = 0; i < rowa; i++)
+    {
+        for (int j = 0; j < colums; j++)
+        {
+            result[i, j] = i + j;
+        }
+    }
+    return result;
+}
+void PrintArray(int[,] inArray)
+{
+    for (int i = 0; i < inArray.GetLength(0); i++)
+    {
+        for (int j = 0; j < inArray.GetLength(1); j++)
+        {
+            Console.Write($"{inArray[i, j]} ");
+        }
+        Console.WriteLine();
+    }
+}
+void ModArray(int[,] array)
+{
+    for(int i = 0; i < array.GetLength(0); i += 2)
+    {
+        for(int j = 0; j < array.GetLength(1); j += 2)
+        {
+            array[i, j] *= array[i,j];
+        }
+    }
+}
