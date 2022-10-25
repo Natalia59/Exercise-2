@@ -20,7 +20,7 @@ static int GetPositiveNumberFromUser(string message, string errorMessage)
     }
 }
 
-static int[,] GetArray(int row, int column, int minRandomValue, int maxRansomValue)
+static int[,] GetArray(int row, int column, int minRandomValue, int maxRandomValue)
 {
     int[,] randomArray = new int[row, column];
 
@@ -28,7 +28,7 @@ static int[,] GetArray(int row, int column, int minRandomValue, int maxRansomVal
     {
         for (int columnIndex = 0; columnIndex < column; columnIndex++)
         {
-            randomArray[rowIndex, columnIndex] = new Random().Next(minRandomValue, maxRansomValue);
+            randomArray[rowIndex, columnIndex] = new Random().Next(minRandomValue, maxRandomValue);
         }
     }
     return randomArray;
@@ -57,13 +57,13 @@ static bool CheckForUserIndexes(int[,] array, int row, int column)
 Console.Clear();
 int userRow = GetPositiveNumberFromUser("Enter number of rows are in your array : ", "Error. Try again.");
 
-int userColumn = GetPositiveNumberFromUser("EEnter number of columns are in your array : ", "Error. Try again.");
+int userColumn = GetPositiveNumberFromUser("Enter number of columns are in your array : ", "Error. Try again.");
 
 int row = new Random().Next(1, 10);
 int column = new Random().Next(1, 10);
 int minRandomValue = new Random().Next(-9, 0);
-int maxRansomValue = new Random().Next(0, 10);
-int[,] array = GetArray(row, column, minRandomValue, maxRansomValue);
+int maxRandomValue = new Random().Next(0, 10);
+int[,] array = GetArray(row, column, minRandomValue, maxRandomValue);
 
 Console.Clear();
 PrintArray(array);
