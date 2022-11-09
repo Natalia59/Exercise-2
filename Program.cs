@@ -1,63 +1,50 @@
-﻿/*
-Введите массив и поменйте строки со столбцом
-*/
+﻿// Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4. 
+// Например, на выходе получается вот такой массив:
+// 01 02 03 04
+// 12 13 14 05
+// 11 16 15 06
+// 10 09 08 07
 
-Console.WriteLine("Введите количество строк: ");
-int rows = int.Parse(Console.ReadLine() ?? "");
+Console.Clear();
 
-Console.Write("Введите количество столбцов массива: ");
-int columns = int.Parse(Console.ReadLine() ?? "");
-if (rows != columns) 
+int n = 4;
+int[,] sqareMatrix = new int[n, n];
+
+int temp = 1;
+int i = 0;
+int j = 0;
+
+while (temp <= sqareMatrix.GetLength(0) * sqareMatrix.GetLength(1))
 {
-    Console.Write("Ошибка, повтори ввод.");
-    return;
+  sqareMatrix[i, j] = temp;
+  temp++;
+  if (i <= j + 1 && i + j < sqareMatrix.GetLength(1) - 1)
+    j++;
+  else if (i < j && i + j >= sqareMatrix.GetLength(0) - 1)
+    i++;
+  else if (i >= j && i + j > sqareMatrix.GetLength(1) - 1)
+    j--;
+  else
+    i--;
 }
 
-int[,] array = GetArray(rows, columns, 0, 20);
-PrintArray(array);
+WriteArray(sqareMatrix);
 
-
-array = SwitchArray(array, rows);
-System.Console.WriteLine();
-PrintArray(array);
-
-int[,] GetArray(int m, int n, int minValue, int maxValue)
+void WriteArray (int[,] array)
 {
-    int[,] result = new int[m, n];
-    for (int i = 0; i < m; i++)
+  for (int i = 0; i < array.GetLength(0); i++)
+  {
+    for (int j = 0; j < array.GetLength(1); j++)
     {
-        for (int j = 0; j < n; j++)
-        {
-            result[i, j] = new Random().Next(minValue, maxValue + 1);
-        }
+      if (array[i,j] / 10 <= 0)
+      Console.Write($"{array[i,j]} ");
+
+      else Console.Write($"{array[i,j]} ");
     }
-    return result;
+    Console.WriteLine();
+  }
 }
 
-void PrintArray(int[,] inArray)
-{
-    for (int i = 0; i < inArray.GetLength(0); i++)
-    {
-        for (int j = 0; j < inArray.GetLength(1); j++)
-        {
-            Console.Write($"{inArray[i, j]} ");
-        }
-        Console.WriteLine();
-    }
-}
-
-int[,] SwitchArray(int[,] arr, int value)
-{
-    int[,] arr2 = new int[value, value];
-    for (int i = 0; i < arr.GetLength(0); i++)
-    {
-        for (int j = 0; j < arr.GetLength(1); j++)
-        {
-            arr2 [i, j] = arr[j,i];             
-        }
-    }
-    return arr2;
-}
 
 
 

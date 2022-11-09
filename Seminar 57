@@ -3,6 +3,7 @@
 
 
 static int[,] GetArray(int row, int column, int minRandomValue, int maxRansomValue)
+
 {
     int[,] randomArray = new int[row, column];
 
