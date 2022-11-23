@@ -1,80 +1,78 @@
-﻿/* Задача 60. ...Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите программу, которая будет построчно выводить массив, 
-добавляя индексы каждого элемента.
-Массив размером 2 x 2 x 2
-66(0,0,0) 25(0,1,0)
-34(1,0,0) 41(1,1,0)
-27(0,0,1) 90(0,1,1)
-26(1,0,1) 55(1,1,1) */
+﻿string? yesNo = "";
+while (yesNo.ToLower() != "yes" && yesNo.ToLower() != "no")
+{
+  Console.Write("Желаете вводить строки вручную? (yes/no): ");
+  yesNo = Console.ReadLine();
+}
 
-Console.Clear();
-Console.WriteLine($"\nВведите размер массива X x Y x Z:");
-int x = InputNumbers("Введите X: ");
-int y = InputNumbers("Введите Y: ");
-int z = InputNumbers("Введите Z: ");
-Console.WriteLine($"");
+string[] arrayOfStrings = new string[]  {};
 
-int[,,] array3D = new int[x, y, z];
-CreateArray(array3D);
-WriteArray(array3D);
+if (yesNo.ToLower() == "yes") {
+  int n = InputNumbers("Введите количество элементов массива: ");
+  arrayOfStrings = new string[n];
+  for (int i = 0; i < arrayOfStrings.Length; i++)
+  {
+    Console.Write($" Введите {i+1} строку: ");
+    arrayOfStrings[i] = Console.ReadLine();
+  }
+}
+else 
+{
+  arrayOfStrings = new string[]  {"hello", "2", "world", ":-)"};
+}
+
+int lengthLimit = 3;
+
+int numbersItems = CheckArray(arrayOfStrings, lengthLimit);
+
+string[] newArrayOfStrings = new string[numbersItems];
+
+FillNewArray(arrayOfStrings, newArrayOfStrings, lengthLimit);
+
+Console.WriteLine($"{PrintArray(newArrayOfStrings)}");
+
+
+void FillNewArray(string[] oldArray, string[] newArray, int lengthLimit)
+{
+  int temp = 0;
+  for (int i = 0; i < oldArray.Length; i++)
+  {
+    if (oldArray[i].Length <= lengthLimit)
+    {
+      newArray[temp] = oldArray[i];
+      temp++;
+    }
+  }
+}
+
+int CheckArray(string[] array, int lengthLimit)
+{
+  int result = 0;
+  for (int i = 0; i < array.Length; i++)
+  {
+    if (array[i].Length <= lengthLimit) result++;
+  }
+  return result;
+}
+
+string PrintArray(string[] array)
+{ 
+  string result = string.Empty;
+  result = "[ ";
+  for (int i = 0; i < array.Length; i++)
+  {
+    result += $"{array[i],1}";
+    if (i < array.Length - 1) result += ", ";
+  }
+  result += " ]";
+  return result;
+}
 
 int InputNumbers(string input)
 {
   Console.Write(input);
   int output = Convert.ToInt32(Console.ReadLine());
   return output;
-}
-
-void WriteArray (int[,,] array3D)
-{
-  for (int i = 0; i < array3D.GetLength(0); i++)
-  {
-    for (int j = 0; j < array3D.GetLength(1); j++)
-    {
-      Console.Write($"X({i}) Y({j}) ");
-      for (int k = 0; k < array3D.GetLength(2); k++)
-      {
-        Console.Write( $"Z({k})={array3D[i,j,k]}; ");
-      }
-      Console.WriteLine();
-    }
-    Console.WriteLine();
-  }
-}
-
-void CreateArray(int[,,] array3D)
-{
-  int[] temp = new int[array3D.GetLength(0) * array3D.GetLength(1) * array3D.GetLength(2)];
-  int  number;
-  for (int i = 0; i < temp.GetLength(0); i++)
-  {
-    temp[i] = new Random().Next(10, 100);
-    number = temp[i];
-    if (i >= 1)
-    {
-      for (int j = 0; j < i; j++)
-      {
-        while (temp[i] == temp[j])
-        {
-          temp[i] = new Random().Next(10, 100);
-          j = 0;
-          number = temp[i];
-        }
-          number = temp[i];
-      }
-    }
-  }
-  int count = 0; 
-  for (int x = 0; x < array3D.GetLength(0); x++)
-  {
-    for (int y = 0; y < array3D.GetLength(1); y++)
-    {
-      for (int z = 0; z < array3D.GetLength(2); z++)
-      {
-        array3D[x, y, z] = temp[count];
-        count++;
-      }
-    }
-  }
 }
 
 
